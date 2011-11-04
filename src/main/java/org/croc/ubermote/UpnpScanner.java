@@ -8,19 +8,17 @@ import org.teleal.cling.registry.RegistryListener;
 
 public class UpnpScanner {
 
-	private DeviceModel model;
-	private RegistryListener listener;
+	private RegistryListener registry;
 	private UpnpService upnpService;
 
 	public UpnpScanner(DeviceModel model) {
-		this.model = new DeviceModel();
-		listener = new UpnpListener(model);
+		registry = new UpnpListener(model);
 	}
 
 	public void scan() {
 		// This will create necessary network resources for UPnP right away
 		System.out.println("Starting Cling...");
-		upnpService = new UpnpServiceImpl(listener);
+		upnpService = new UpnpServiceImpl(registry);
 
 		// Send a search message to all devices and services, they should respond soon
 		upnpService.getControlPoint().search(new STAllHeader());
